@@ -26,6 +26,9 @@ def scrape_tweets(search, n_max=5000):
         if i > n_max:
             break
         tweets_list += [tweet]
+    log_with_mod_prefix(
+        "Scraped {:,} tweets".format(len(tweets_list))
+    )
     return tweets_list
 
 
