@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  comms_helper:
+    container_name: comms-helper
+    restart: always
+    build: .
+    volumes:
+      - ".:/app"
+    ports:
+      - "8910:8910"
+    command: tail -f /dev/null
