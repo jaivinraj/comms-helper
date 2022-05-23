@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "comms-helper"
+version = "1.0.0"
+description = "Example Python project"
+authors = ["Jaivin <jaivin.raj16@gmail.com>"]
+
+packages = [
+    { include = "comms_helper", from = "src" },
+]
+
+[tool.poetry.scripts]
+example-app = "example.app:main"
+
+[tool.poetry.dependencies]
+python = "~3.8"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
