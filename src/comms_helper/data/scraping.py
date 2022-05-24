@@ -37,7 +37,7 @@ def scrape_tweets(search, n_max=5000):
         enumerate(sntwitter.TwitterSearchScraper("{}".format(search)).get_items()),
         total=n_max,
     ):
-        if i > n_max:
+        if i >= n_max:
             break
         tweets_list += [tweet]
     log_with_mod_prefix(
