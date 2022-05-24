@@ -17,6 +17,27 @@ log_with_mod_prefix = partial(log_with_prefix, logging_prefix=logging_prefix)
 
 
 def centrality(g=None, metric_name="betweenness", weights="n_links_inv"):
+    """Calculate centrality for each node on an igraph
+
+    Parameters
+    ----------
+    g : igraph.Graph, optional
+        Graph, by default None
+    metric_name : str, optional
+        Name of metric to calculate, by default "betweenness"
+    weights : str, optional
+        Edge attribute to use for weights, by default "n_links_inv"
+
+    Returns
+    -------
+    array
+        array of centralities
+
+    Raises
+    ------
+    Exception
+        Invalid betweenness metric
+    """
     if metric_name == "betweenness":
         return g.betweenness(weights=weights)
     elif metric_name == "degree":
@@ -30,7 +51,10 @@ def centrality(g=None, metric_name="betweenness", weights="n_links_inv"):
 
 
 class MyGraph(ig.Graph):
+    """Class built on igraph's Graph object."""
+
     def __init__(self, *args, **kwargs):
+
         super(MyGraph, self).__init__(*args, **kwargs)
         self.namearr = np.array(self.vs["name"])
 
@@ -38,7 +62,7 @@ class MyGraph(ig.Graph):
         self, g=None, metric_names=["betweenness", "degree", "eigenvector", "closeness"]
     ):
         """Store centralities for all metrics in dictionary
-        
+
         Parameters
         ----------
         metric_names: list of strings
@@ -50,7 +74,7 @@ class MyGraph(ig.Graph):
             self.vs[metric_name] = centrality(self, metric_name)
 
     def _get_info_table(self):
-        """Get table of info including various centralities and 
+        """Get table of info including various centralities and
 
         ToDo
         ----
@@ -67,7 +91,7 @@ class MyGraph(ig.Graph):
         )
 
     def _get_communities(self):
-        """Perform a Louvain partitioning algorithm on the entity 
+        """Perform a Louvain partitioning algorithm on the entity
         network
         """
         self.louvain_partition = self.community_multilevel(weights="n_links_inv")
@@ -99,8 +123,7 @@ class MyGraph(ig.Graph):
         log_with_mod_prefix("Got entity info table")
 
     def get_subgraphs(self):
-        """Get a subgraph for each community in the network
-        """
+        """Get a subgraph for each community in the network"""
         self.subgraphs = {}
         df_name_community = pd.DataFrame(
             {"name": self.vs["name"], "community": self.vs["community"]}
@@ -114,6 +137,7 @@ class MyGraph(ig.Graph):
             )
 
     def get_info_table_edges(self):
+        """Create a dataframe with information on edges in the graph"""
         self.info_table_edges = pd.DataFrame(
             {
                 "id": self.es.indices,
@@ -186,4 +210,16 @@ class MyGraph(ig.Graph):
 
 
 def get_edgelist(g):
+    """Get an edgelist from an igraph graph
+
+    Parameters
+    ----------
+    g : igraph.Graph
+        Graph object
+
+    Returns
+    -------
+    list
+        list of edges
+    """
     return [e.tuple for e in g.es]
