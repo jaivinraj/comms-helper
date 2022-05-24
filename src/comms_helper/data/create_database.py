@@ -13,7 +13,17 @@ CREATE TABLE "tweets" (
   "content" VARCHAR(280),
   "url" TEXT,
   "username" VARCHAR(15),
+  "timestamp" TIMESTAMP,
+  "import_timestamp" TIMESTAMP,
   PRIMARY KEY ("tweet_id")
+);
+
+CREATE TABLE "mentions" (
+  "tweet_id" INT,
+  "username" VARCHAR(15),
+  CONSTRAINT "FK_mentions.tweet_id"
+    FOREIGN KEY ("tweet_id")
+      REFERENCES "tweets"("tweet_id")
 );
 
 CREATE TABLE "searches" (
@@ -25,21 +35,14 @@ CREATE TABLE "searches" (
 CREATE TABLE "tweet_searches" (
   "tweet_id" INT,
   "search_id" INT,
-  CONSTRAINT "FK_tweet_searches.tweet_id"
-    FOREIGN KEY ("tweet_id")
-      REFERENCES "tweets"("tweet_id"),
   CONSTRAINT "FK_tweet_searches.search_id"
     FOREIGN KEY ("search_id")
-      REFERENCES "searches"("search_id")
-);
-
-CREATE TABLE "mentions" (
-  "tweet_id" INT,
-  "username" VARCHAR(15),
-  CONSTRAINT "FK_mentions.tweet_id"
+      REFERENCES "searches"("search_id"),
+  CONSTRAINT "FK_tweet_searches.tweet_id"
     FOREIGN KEY ("tweet_id")
       REFERENCES "tweets"("tweet_id")
 );
+
 
 """
 
