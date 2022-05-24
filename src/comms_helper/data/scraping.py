@@ -70,7 +70,7 @@ def scraped_tweets_to_df(tweets_list):
 
     tweet_dict["id"] = [tweet.id for tweet in tweets_list]
 
-    tweet_dict["username"] = [tweet.username for tweet in tweets_list]
+    tweet_dict["username"] = [tweet.user.username for tweet in tweets_list]
     return pd.DataFrame(tweet_dict)
 
 
