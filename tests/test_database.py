@@ -1,5 +1,6 @@
 import os
 from comms_helper.data.dummy import df_dummy
+from comms_helper.data.update_tables import scrape_to_database
 
 user = os.getenv("POSTGRES_USER")
 password = os.getenv("POSTGRES_PASSWORD")
@@ -38,22 +39,7 @@ def test_update_tweets():
         )
         # join to full table
         conn.execute(Q_UPDATE_TWEETS)
-        # conn.execute(
-        #     """
-        #     INSERT INTO tweets ({cols})
-        # SELECT {cols} FROM tweets_temp
-        # ON CONFLICT (tweet_id)
-        #         DO UPDATE
-        #         SET
-        #             import_timestamp=EXCLUDED.import_timestamp
-        # """.format(
-        #         cols=",".join([i for i in df_dummy.columns]),
-        #         cols_set=",".join(
-        #             [
-        #                 "{col} = tweets_temp.{col}".format(col=i)
-        #                 for i in df_dummy.columns
-        #                 if i != "tweet_id"
-        #             ]
-        #         ),
-        #     )
-        # )
+
+
+def test_update_tweets_scrape():
+    scrape_to_database("Robert Hazell", user=user, password=password, n_max=20)
