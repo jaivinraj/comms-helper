@@ -7,7 +7,7 @@ from functools import partial
 
 from comms_helper.logging_utils import log_with_prefix
 
-logging_prefix = "comms_helper.scraping"
+logging_prefix = "comms_helper.data.scraping"
 
 log_with_mod_prefix = partial(log_with_prefix, logging_prefix=logging_prefix)
 
