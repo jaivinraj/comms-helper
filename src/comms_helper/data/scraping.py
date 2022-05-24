@@ -40,9 +40,7 @@ def scrape_tweets(search, n_max=5000):
         if i >= n_max:
             break
         tweets_list += [tweet]
-    log_with_mod_prefix(
-        "Scraped {:,} tweets".format(len(tweets_list))
-    )
+    log_with_mod_prefix("Scraped {:,} tweets".format(len(tweets_list)))
     return tweets_list
 
 
@@ -68,7 +66,7 @@ def scraped_tweets_to_df(tweets_list):
 
     tweet_dict["content"] = [tweet.content for tweet in tweets_list]
 
-    tweet_dict["id"] = [tweet.id for tweet in tweets_list]
+    tweet_dict["tweet_id"] = [tweet.id for tweet in tweets_list]
 
     tweet_dict["username"] = [tweet.user.username for tweet in tweets_list]
     return pd.DataFrame(tweet_dict)

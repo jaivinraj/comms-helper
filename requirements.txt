@@ -1,17 +1,35 @@
+# standard libraries
 numpy
 scipy
 pandas
+tqdm
+scikit-learn
+
+# scraping
 snscrape
+
+# messing around in notebooks
 notebook
 jupyter_contrib_nbextensions
 nb_black
-tqdm
+
+# visualisation
 wordcloud
 matplotlib
-igraph
-scikit-learn
 seaborn
 plotly
+
+# networks
+igraph
+
+# dashboard
 dash
 dash-bootstrap-components
 dash-extensions
+
+# testing
+pytest
+
+# database
+sqlalchemy
+psycopg2-binary

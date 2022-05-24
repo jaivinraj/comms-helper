@@ -2,6 +2,7 @@ version: "3"
 
 services:
   comms_helper:
+    platform: linux/amd64
     container_name: comms-helper
     restart: always
     build: .
@@ -10,4 +11,24 @@ services:
     ports:
       - "8910:8910"
       - "8050:8050"
+    env_file:
+      - database.env 
+    network_mode: comms_postgres_network
     command: tail -f /dev/null
+
+  postgres:
+    platform: linux/amd64
+    image: "postgres" # use latest official postgres version
+    container_name: comms-postgres
+    restart: always
+    env_file:
+      - database.env # configure postgres
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data/ # persist data even 
+    networks:
+        - comms_postgres_network
+
+
+networks:
+  comms_postgres_network:
+    name: comms_postgres_network
