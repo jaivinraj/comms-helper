@@ -62,7 +62,7 @@ def scraped_tweets_to_df(tweets_list):
 
     tweet_dict["url"] = [tweet.url for tweet in tweets_list]
 
-    tweet_dict["date"] = [tweet.date for tweet in tweets_list]
+    tweet_dict["timestamp"] = [tweet.date for tweet in tweets_list]
 
     tweet_dict["content"] = [tweet.content for tweet in tweets_list]
 
