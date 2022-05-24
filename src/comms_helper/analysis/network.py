@@ -1,11 +1,6 @@
 import pandas as pd
 from itertools import combinations
 import numpy as np
-from sklearn.preprocessing import minmax_scale
-import os
-import time
-import math
-import logging
 import igraph as ig
 from functools import partial
 
