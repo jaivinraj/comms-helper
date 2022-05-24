@@ -9,6 +9,7 @@ This app aims to give a flavour of what's going on in the Twittersphere around a
 ## 2. ToDo
 
 - [x] Create scraper
+- [ ] Create database
 - [ ] Create initial dashboard
   - [ ] Sentiment analysis
   - [ ] Topic analysis

@@ -9,4 +9,5 @@ services:
       - ".:/app"
     ports:
       - "8910:8910"
+      - "8050:8050"
     command: tail -f /dev/null

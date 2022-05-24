@@ -8,3 +8,9 @@ nb_black
 tqdm
 wordcloud
 matplotlib
+igraph
+scikit-learn
+seaborn
+plotly
+dash
+dash-bootstrap-components
