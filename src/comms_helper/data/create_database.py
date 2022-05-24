@@ -9,8 +9,8 @@ log_with_mod_prefix = partial(log_with_prefix, logging_prefix=logging_prefix)
 # Query generated from lucid
 CREATE_TABLE_QUERY = """
 CREATE TABLE "tweets" (
-  "tweet_id" INT,
-  "content" VARCHAR(280),
+  "tweet_id" BIGINT,
+  "content" TEXT,
   "url" TEXT,
   "username" VARCHAR(15),
   "timestamp" TIMESTAMP,
@@ -19,7 +19,7 @@ CREATE TABLE "tweets" (
 );
 
 CREATE TABLE "mentions" (
-  "tweet_id" INT,
+  "tweet_id" BIGINT,
   "username" VARCHAR(15),
   CONSTRAINT "FK_mentions.tweet_id"
     FOREIGN KEY ("tweet_id")
@@ -33,7 +33,7 @@ CREATE TABLE "searches" (
 );
 
 CREATE TABLE "tweet_searches" (
-  "tweet_id" INT,
+  "tweet_id" BIGINT,
   "search_id" INT,
   CONSTRAINT "FK_tweet_searches.search_id"
     FOREIGN KEY ("search_id")
