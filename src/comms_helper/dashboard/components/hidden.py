@@ -14,8 +14,9 @@ hidden_layout = html.Div([html.Div(id="data", style={"display": "none"})])
 @dashapp.callback(
     Output("data", "children"),
     Input("search-selection", "value"),
+    Input("update_output", "children"),
 )
-def update_data(value):
+def update_data(value, child):
     dataloader = DashDataFromDatabase(searchname=value, user=user, password=password)
     df = dataloader.get_tweets()
     return df.to_json(date_format="iso", orient="split")
