@@ -21,9 +21,19 @@ import_timestamp"""
 )
 
 
-def scrape_to_database(search, n_max=5000, schema="testing", user=None, password=None):
+def scrape_to_database(
+    search, n_max=5000, schema="testing", user=None, password=None, start_date=None
+):
     # scrape data and update database
-    tweets_lst = scrape_tweets(search, n_max)
+    tweets_lst = scrape_tweets(
+        search
+        + (
+            "since {}".format(start_date.strftime("%m/%d/%Y"))
+            if start_date is not None
+            else ""
+        ),
+        n_max,
+    )
     df = scraped_tweets_to_df(tweets_lst)
     df["import_timestamp"] = pd.Timestamp.now()
     engine = get_engine(user, password, schema=schema)
