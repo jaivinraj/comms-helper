@@ -1,5 +1,7 @@
-from comms_helper.data.db_utils import get_engine
+from venv import create
+from comms_helper.data.db_utils import get_engine, schema_exists
 from comms_helper.data.scraping import scrape_tweets, scraped_tweets_to_df
+from comms_helper.data.create_database import create_schema, CREATE_TABLE_QUERY
 import pandas as pd
 
 Q_UPDATE_TWEETS = """
@@ -23,7 +25,7 @@ def scrape_to_database(search, n_max=5000, schema="testing", user=None, password
     tweets_lst = scrape_tweets(search, n_max)
     df = scraped_tweets_to_df(tweets_lst)
     df["import_timestamp"] = pd.Timestamp.now()
-    engine = get_engine(user, password, schema="testing")
+    engine = get_engine(user, password, schema=schema)
     with engine.connect() as conn:
         # create temporary table
         conn.execute("CREATE TEMPORARY TABLE tweets_temp (LIKE tweets)")
@@ -36,3 +38,11 @@ def scrape_to_database(search, n_max=5000, schema="testing", user=None, password
         )
         # join to full table
         conn.execute(Q_UPDATE_TWEETS)
+
+
+def create_schema_and_tables(schema="testing", user=None, password=None):
+    if not schema_exists(schema, user, password):
+        create_schema(schema, user, password)
+        engine = get_engine(user, password, schema=schema)
+        with engine.connect() as conn:
+            conn.execute(CREATE_TABLE_QUERY)

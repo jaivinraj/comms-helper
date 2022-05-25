@@ -1,5 +1,6 @@
 import sqlalchemy as sa
 from jinja2 import Template
+import pandas as pd
 
 
 def get_engine(
@@ -43,3 +44,16 @@ def get_table_creation_query(tablename, coldict, schema, index_cols=[], unique_c
         """
     )
     return qj_tmplt.render(q_params)
+
+
+def schema_exists(schema_name, user, password):
+    engine = get_engine(user, password)
+    check_query = "SELECT schema_name FROM information_schema.schemata WHERE schema_name = '{}';".format(
+        schema_name
+    )
+    with engine.connect() as conn:
+        df = pd.read_sql(check_query, con=conn)
+    if len(df) > 0:
+        return True
+    else:
+        return False
