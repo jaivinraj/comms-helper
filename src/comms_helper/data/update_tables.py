@@ -22,6 +22,7 @@ import_timestamp"""
 
 
 def scrape_to_database(search, n_max=5000, schema="testing", user=None, password=None):
+    # scrape data and update database
     tweets_lst = scrape_tweets(search, n_max)
     df = scraped_tweets_to_df(tweets_lst)
     df["import_timestamp"] = pd.Timestamp.now()
@@ -41,6 +42,7 @@ def scrape_to_database(search, n_max=5000, schema="testing", user=None, password
 
 
 def create_schema_and_tables(schema="testing", user=None, password=None):
+    # create the schema if doesn't already exist
     if not schema_exists(schema, user, password):
         create_schema(schema, user, password)
         engine = get_engine(user, password, schema=schema)
