@@ -25,10 +25,10 @@ time_series_layout = html.Div(
 def update_time_series(json_data):
     dff = pd.read_json(json_data, orient="split")
     tweet_count = get_tweet_count(dff, "W")
-    pretty_names = {"n_tweets": "Number of tweets", "date": "Week ending"}
+    pretty_names = {"n_tweets": "Number of tweets", "timestamp": "Week ending"}
     fig = px.line(
         tweet_count.to_frame("n_tweets").reset_index().rename(columns=pretty_names),
-        x=pretty_names["date"],
+        x=pretty_names["timestamp"],
         y=pretty_names["n_tweets"],
     )
     return fig

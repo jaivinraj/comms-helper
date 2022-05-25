@@ -5,7 +5,7 @@ RULE_MAP = {"W": "Weekly", "M": "Monthly"}
 
 
 def get_tweet_count(df, resample_rule="W"):
-    return df.set_index("date").resample(resample_rule).count()["content"]
+    return df.set_index("timestamp").resample(resample_rule).count()["content"]
 
 
 def tweet_count_to_rolling(tweet_count, rolling_window=4):
