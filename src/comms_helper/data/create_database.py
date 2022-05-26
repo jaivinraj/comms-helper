@@ -43,6 +43,9 @@ CREATE TABLE "tweet_searches" (
       REFERENCES "tweets"("tweet_id")
 );
 
+-- prevent duplicates
+CREATE UNIQUE INDEX duplicate_mention_index ON mentions(tweet_id, username);
+
 
 """
 
