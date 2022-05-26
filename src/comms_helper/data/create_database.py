@@ -21,6 +21,7 @@ CREATE TABLE "tweets" (
 CREATE TABLE "mentions" (
   "tweet_id" BIGINT,
   "username" VARCHAR(15),
+  PRIMARY KEY ("tweet_id", "username"),
   CONSTRAINT "FK_mentions.tweet_id"
     FOREIGN KEY ("tweet_id")
       REFERENCES "tweets"("tweet_id")
@@ -42,11 +43,6 @@ CREATE TABLE "tweet_searches" (
     FOREIGN KEY ("tweet_id")
       REFERENCES "tweets"("tweet_id")
 );
-
--- prevent duplicates
-CREATE UNIQUE INDEX duplicate_mention_index ON mentions(tweet_id, username);
-
-
 """
 
 

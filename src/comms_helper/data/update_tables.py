@@ -24,7 +24,7 @@ import_timestamp"""
 Q_UPDATE_MENTIONS = """
 INSERT INTO mentions ({cols})
 SELECT {cols} FROM mentions_temp
-ON CONFLICT (tweet_id)
+ON CONFLICT (tweet_id,username)
         DO NOTHING
 """.format(
     cols="""tweet_id,
