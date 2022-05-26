@@ -52,3 +52,8 @@ class DashDataFromDatabase(DashData):
         with self.engine.connect() as conn:
             df = pd.read_sql("SELECT * FROM tweets", con=conn)
         return df
+
+    def get_mentions(self):
+        with self.engine.connect() as conn:
+            df = pd.read_sql("SELECT * FROM mentions", con=conn)
+        return df

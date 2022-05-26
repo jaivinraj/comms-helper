@@ -9,6 +9,7 @@ from comms_helper.dashboard.components.hidden import hidden_layout
 from comms_helper.dashboard.components.wordcloud import wordcloud_layout
 from comms_helper.dashboard.components.search_selection import search_selection_layout
 from comms_helper.dashboard.components.time_series import time_series_layout
+from comms_helper.dashboard.components.network import network_layout
 
 dashapp.layout = html.Div(
     [
@@ -17,6 +18,7 @@ dashapp.layout = html.Div(
         wordcloud_layout,
         hidden_layout,
         time_series_layout,
+        network_layout,
     ]
 )
 

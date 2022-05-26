@@ -218,3 +218,38 @@ def get_edgelist(g):
         list of edges
     """
     return [e.tuple for e in g.es]
+
+
+def create_edgelist(df, df_mentions):
+    df_joined = df.join(
+        df_mentions.set_index("tweet_id"), on="tweet_id", rsuffix="_ref"
+    ).dropna()  # join and remove null
+    df_edges = (
+        (
+            df_joined.reset_index()
+            .groupby(["username", "username_ref"])
+            .agg({"tweet_id": lambda x: list(x), "index": "count"})
+        )
+        .reset_index()
+        .rename(columns={"index": "n_links"})
+    )
+    df_edges["n_links_inv"] = 1 / df_edges["n_links"]
+    return df_edges
+
+
+edge_attr_list = ["n_links", "n_links_inv", "tweet_id"]
+cols = ["username", "username_ref"] + edge_attr_list
+
+
+def create_process_graph(df_edges):
+    g = MyGraph.TupleList(
+        df_edges[cols].itertuples(index=False),
+        edge_attrs=edge_attr_list,
+    )
+
+    g.get_metrics()
+
+    g.get_info_table_edges()
+
+    g.info_table.sort_values("betweenness", ascending=False).head()
+    return g
