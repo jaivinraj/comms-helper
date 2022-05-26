@@ -3,7 +3,7 @@ import pandas as pd
 
 def_test = pd.DataFrame(
     {
-        "date": [pd.to_datetime("2022-01-01"), pd.to_datetime("2022-01-02")],
+        "timestamp": [pd.to_datetime("2022-01-01"), pd.to_datetime("2022-01-02")],
         "content": ["a tweet", "another tweet"],
     }
 )
