@@ -35,6 +35,8 @@ ON CONFLICT (tweet_id,username)
 def scrape_to_database(
     search, n_max=5000, schema="testing", user=None, password=None, start_date=None
 ):
+    if start_date is not None:
+        print(f"scraping data since {start_date}")
     # scrape data and update database
     tweets_lst = scrape_tweets(
         search
