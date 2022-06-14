@@ -36,12 +36,12 @@ def scrape_to_database(
     search, n_max=5000, schema="testing", user=None, password=None, start_date=None
 ):
     if start_date is not None:
-        print(f"scraping data since {start_date}")
+        print("scraping data since {}".format(start_date.strftime("%Y-%m-%d")))
     # scrape data and update database
     tweets_lst = scrape_tweets(
         search
         + (
-            "since {}".format(start_date.strftime("%m/%d/%Y"))
+            "since:{}".format(start_date.strftime("%Y-%m-%d"))
             if start_date is not None
             else ""
         ),
